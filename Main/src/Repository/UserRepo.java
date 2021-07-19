@@ -98,7 +98,18 @@ public class UserRepo implements BaseRepo {
     }
 
     @Override
-    public void delete(int id) {
+    public void delete(int id) throws SQLException {
+
+    }
+
+
+    public void deleteAccount(int id) throws SQLException {
+
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "DELETE FROM user WHERE id=?;");
+        ps.setInt(1, id);
+        ps.executeQuery();
+        PrintMessage.printMsg("Your account was deleted successfuly .");
 
     }
 
@@ -120,5 +131,14 @@ public class UserRepo implements BaseRepo {
             return rs.getInt("creadit");
         }
         return 0;
+    }
+
+    public void setUserPassUpdate(int id, String column, String value) throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "update user  set "+column+"=?  where id = ?");
+        ps.setString(1, value);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        PrintMessage.printMsg(column + " was changed successfuly .");
     }
 }

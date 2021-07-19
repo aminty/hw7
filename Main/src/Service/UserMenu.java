@@ -2,11 +2,10 @@ package Service;
 
 import Entity.User;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-public class UserMenu implements UserMenuInterface{
+public class UserMenu implements UserMenuInterface {
     @Override
     public void signUp() throws SQLException {
         User user = new User();
@@ -40,6 +39,7 @@ public class UserMenu implements UserMenuInterface{
         user.setCreadit(Integer.parseInt(ApplicationObject.getValidation().entryData("How much do you want charge your account ?", ApplicationObject.DECIMAL_REGEX)));
         ApplicationObject.getUserRepo().addNewUser(user);
     }
+
     @Override
     public void Login() throws SQLException {
         System.out.println("-+-+-+-+-+-+-+ L O G I N -+-+-+-+-+-+-+-+");
@@ -53,37 +53,66 @@ public class UserMenu implements UserMenuInterface{
         if (ApplicationObject.getUserRepo().isUsernameExist(username)) {
             user = ApplicationObject.getUserRepo().getUserInfo(username);
             if (user.getPassword().equals(password) && user.getUsername().equals(username)) {
-                if (user.isApprove()){
+                if (user.isApprove()) {
                     ApplicationObject.getMenu().runAuthorMenu(user);
-                }else PrintMessage.printMsg("Your account does not approved yet !");
+                } else PrintMessage.printMsg("Your account does not approved yet !");
             } else PrintMessage.printError("Username or password is incorrect !");
         } else PrintMessage.printError("This account was not found !");
     }
+
     @Override
     public void chargeCreadit() throws SQLException {
         System.out.print(" - Enter your username : ");
-        String username =new Scanner(System.in).next();
-        if (ApplicationObject.getUserRepo().isUsernameExist(username)){
-            int currentBalance=ApplicationObject.getUserRepo().getCreadit(username);
+        String username = new Scanner(System.in).next();
+        if (ApplicationObject.getUserRepo().isUsernameExist(username)) {
+            int currentBalance = ApplicationObject.getUserRepo().getCreadit(username);
             PrintMessage.printMsg
-                    ("Your current balance is "+
-                           currentBalance +" tomans." );
+                    ("Your current balance is " +
+                            currentBalance + " tomans.");
             System.out.print(" - How much do you want charge your account ? ");
-            int price =new Scanner(System.in).nextInt();
-            ApplicationObject.getUserRepo().updateCreadit(username,price,currentBalance);
-        }else PrintMessage.printError("This username does not found !");
+            int price = new Scanner(System.in).nextInt();
+            ApplicationObject.getUserRepo().updateCreadit(username, price, currentBalance);
+        } else PrintMessage.printError("This username does not found !");
     }
+
     @Override
     public void chargeCreadit(String username) throws SQLException {
-        int currentBalance=ApplicationObject.getUserRepo().getCreadit(username);
+        int currentBalance = ApplicationObject.getUserRepo().getCreadit(username);
         PrintMessage.printMsg
-                ("Your current balance is "+
-                        currentBalance +" tomans." );
+                ("Your current balance is " +
+                        currentBalance + " tomans.");
         System.out.print(" - How much do you want charge your account ? ");
-        int price =new Scanner(System.in).nextInt();
-        ApplicationObject.getUserRepo().updateCreadit(username,price,currentBalance);
+        int price = new Scanner(System.in).nextInt();
+        ApplicationObject.getUserRepo().updateCreadit(username, price, currentBalance);
 
 
+    }
+
+    @Override
+    public void changeUsername(int id) throws SQLException {
+
+        while (true) {
+            String username = ApplicationObject.getValidation().entryData("Choose an username : ", ApplicationObject.USERNAME_REGEX);
+            if (!username.equals("Untitled")) {
+                if (!ApplicationObject.getUserRepo().isUsernameExist(username)) {
+                    ApplicationObject.getUserRepo().setUserPassUpdate(id, "username", username);
+                    break;
+                } else PrintMessage.printError("This username was taken !");
+            }else break;
+        }
+    }
+
+    @Override
+    public void changePassword(int id) throws SQLException {
+        String password = ApplicationObject.getValidation().entryData("Choose a password : ", ApplicationObject.PASSWORD_REGEX);
+        if (!password.equals("Untitled"))
+            ApplicationObject.getUserRepo().setUserPassUpdate(id, "password", password);
+
+    }
+
+    @Override
+    public void removeAccount(int id) throws SQLException {
+        ApplicationObject.getUserRepo().deleteAccount(id);
 
     }
 }

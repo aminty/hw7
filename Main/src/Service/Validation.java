@@ -29,10 +29,11 @@ public class Validation {
         while (flag) {
             System.out.printf(" - %s ", message);
             String value = sc.nextLine().trim();
+            if (value.equals("0"))break;
             if (isValidData(value,regex)) {
                 flag = false;
                 return value;
-            }
+            }else
             PrintMessage.printError("Invalid format , Try again !");
         }
 

@@ -16,11 +16,14 @@ public class ApplicationObject {
     public static final String NAME_REGEX = "^[A-Za-z]*";
     public static final String LAST_NAME_REGEX = "^[A-Za-z]*";
     public static final String NAT_CODE_REGEX = "^\\d{10}$";
+    public static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
     public static final String USERNAME_REGEX = "^[A-Za-z]\\w{5,29}$";
     public static final String DECIMAL_REGEX = "^\\d+$";
     public static final String[] AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Unpublished", "Change info", "Exit"};
     public static final String[] ADMIN_AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Unpublished", "Change info", "Exit", "Account managment"};
     public static final String [] PUBLIC_MENU={"Login", "Sign up", "Show article", "Charge creadit", "Exit"};
+    public static final String [] EDIT_INFO_MENU={"Edit username", "Change password", "Delete Account", "Exit"};
+
     private static Connection connection = new DatabaseInitiator().getCreatedConnection();
     private static Menu menu = new Menu();
     private static Validation validation = new Validation();
