@@ -7,6 +7,7 @@ import Repository.CategoryRepo;
 import Repository.TagRepo;
 import Repository.UserRepo;
 
+import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -17,7 +18,9 @@ public class ApplicationObject {
     public static final String NAT_CODE_REGEX = "^\\d{10}$";
     public static final String USERNAME_REGEX = "^[A-Za-z]\\w{5,29}$";
     public static final String DECIMAL_REGEX = "^\\d+$";
-
+    public static final String[] AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Unpublished", "Change info", "Exit"};
+    public static final String[] ADMIN_AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Unpublished", "Change info", "Exit", "Account managment"};
+    public static final String [] PUBLIC_MENU={"Login", "Sign up", "Show article", "Charge creadit", "Exit"};
     private static Connection connection = new DatabaseInitiator().getCreatedConnection();
     private static Menu menu = new Menu();
     private static Validation validation = new Validation();

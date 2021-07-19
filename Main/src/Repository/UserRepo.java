@@ -9,8 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class UserRepo implements BaseRepo{
-
+public class UserRepo implements BaseRepo {
 
     public boolean isUsernameExist(String username) throws SQLException {
 
@@ -18,9 +17,9 @@ public class UserRepo implements BaseRepo{
                 "SELECT username from user where username = ?");
         ps.setString(1, username);
         ResultSet rs = ps.executeQuery();
-
         return rs.next();
     }
+
     public boolean isNatioalCodeExist(String nationalCode) throws SQLException {
         PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
                 "SELECT nationalCode from user where nationalCode = ?");
@@ -29,6 +28,7 @@ public class UserRepo implements BaseRepo{
         return resultSet.next();
 
     }
+
     public void addNewUser(User users) throws SQLException {
         PreparedStatement ps =
                 ApplicationObject.getConnection().prepareStatement(
@@ -54,6 +54,7 @@ public class UserRepo implements BaseRepo{
 
 
     }
+
     public void createUserTable() throws SQLException {
         Statement stm = ApplicationObject.getConnection().createStatement();
         stm.executeUpdate("CREATE table IF not EXISTS user (id int AUTO_INCREMENT not null primary key," +
@@ -63,15 +64,32 @@ public class UserRepo implements BaseRepo{
                 "password varchar (16)," +
                 "birthday DATE ," +
                 "nationalCode varchar(10) unique ," +
-                "creadit int default  0)");
+                "creadit int default  0 ," +
+                "isAdmin boolean default 0," +
+                "isApprove boolean default 0)");
         stm.close();
     }
-    public ResultSet getUserInfo(String username) throws SQLException {
 
+    public User getUserInfo(String username) throws SQLException {
+        User user = new User();
         PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
                 "SELECT * from user where username = ?");
         ps.setString(1, username);
-        return ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            user.setFirstName(rs.getString("name"));
+            user.setLastName(rs.getString("lastName"));
+            user.setUsername(rs.getString("username"));
+            user.setPassword(rs.getString("password"));
+            user.setBirthday(String.valueOf(rs.getString("birthday")));
+            user.setNationalCode(rs.getString("nationalCode"));
+            user.setId(rs.getInt("id"));
+            user.setCreadit(rs.getInt("creadit"));
+            user.setAdmin(rs.getBoolean("isAdmin"));
+            user.setApprove(rs.getBoolean("isApprove"));
+        }
+        return user;
+
     }
 
     @Override
@@ -84,5 +102,23 @@ public class UserRepo implements BaseRepo{
 
     }
 
+    public void updateCreadit(String username, int price, int currentBalance) throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "update user  set creadit=?  where username = ?");
+        ps.setInt(1, price + currentBalance);
+        ps.setString(2, username);
+        ps.executeUpdate();
+        PrintMessage.printMsg(price + " Tomans was deposited in your account");
+    }
 
+    public int getCreadit(String username) throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "select creadit from user where username = ?");
+        ps.setString(1, username);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            return rs.getInt("creadit");
+        }
+        return 0;
+    }
 }

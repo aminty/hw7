@@ -13,13 +13,15 @@ public class User {
     private String nationalCode;
     private String birthday;
     private int creadit;
+    private boolean isAdmin;
+    private boolean isApprove;
 
     public User() {
     }
 
     public User(int id, String firstName, String lastName,
                 String username, String password, String nationalCode,
-                String birthday, int creadit) {
+                String birthday, int creadit,boolean isAdmin,boolean isApprove) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -28,6 +30,8 @@ public class User {
         this.nationalCode = nationalCode;
         this.birthday = birthday;
         this.creadit = creadit;
+        this.isAdmin=isAdmin;
+        this.isApprove=isApprove;
     }
 
     public int getId() {
@@ -92,5 +96,21 @@ public class User {
 
     public void setCreadit(int creadit) {
         this.creadit = creadit;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
+    public boolean isApprove() {
+        return isApprove;
+    }
+
+    public void setApprove(boolean approve) {
+        isApprove = approve;
     }
 }
