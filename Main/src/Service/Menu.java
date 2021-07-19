@@ -17,11 +17,12 @@ public class Menu {
                 String selectedItem = new Scanner(System.in).next();
                 switch (ApplicationObject.getValidation().checkInt(selectedItem)) {
                     case 0:
-                        PrintMessage.printMsg("Wrong input !");
+                        PrintMessage.printError("Wrong input !");
                         break;
                     case 1:
                         break;
                     case 2:
+                        ApplicationObject.getUserMenu().signUp();
                         break;
                     case 3:
                         break;
@@ -31,7 +32,7 @@ public class Menu {
                         PrintMessage.printMsg("See you later ");
                         break outer;
                     default:
-                        PrintMessage.printMsg("Wrong input !");
+                        PrintMessage.printError("Wrong input !");
                         break;
 
 

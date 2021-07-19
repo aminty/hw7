@@ -2,9 +2,12 @@ package Service;
 
 public class PrintMessage {
     public static void printMsg(String message) {
-        System.out.println("|-----------------------------");
-        System.out.println("|>>> "+message);
-        System.out.println("|-----------------------------");
+        System.out.println(">>> "+message);
+    }
+
+
+    public static void printError(String message) {
+        System.out.println("|-------------------------------->>> "+message);
 
 
     }

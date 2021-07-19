@@ -1,6 +1,7 @@
 package Entity;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class User {
 
@@ -10,7 +11,7 @@ public class User {
     private String username;
     private String password;
     private String nationalCode;
-    private Timestamp birthday;
+    private String birthday;
     private double creadit;
 
     public User() {
@@ -18,7 +19,7 @@ public class User {
 
     public User(int id, String firstName, String lastName,
                 String username, String password, String nationalCode,
-                Timestamp birthday, double creadit) {
+                String birthday, double creadit) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -77,11 +78,11 @@ public class User {
         this.nationalCode = nationalCode;
     }
 
-    public Timestamp getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Timestamp birthday) {
+    public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
 

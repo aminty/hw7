@@ -3,21 +3,35 @@ package Service;
 import java.sql.Connection;
 
 public class ApplicationObject {
+    public static final String DATE_REGEX = "(^[12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$";
+    public static final String NAME_REGEX = "^[A-Za-z]*";
+    public static final String LAST_NAME_REGEX = "^[A-Za-z]*";
+    public static final String NAT_CODE_REGEX = "^\\d{10}$";
+    public static final String USERNAME_REGEX = "^[A-Za-z]\\w{5,29}$";
+    public static final String DECIMAL_REGEX = "^\\d+$";
 
-     private static Connection connection=new DatabaseInitiator().getCreatedConnection();
-     public static Connection getConnection(){
-         return connection;
-     }
+    private static Connection connection = new DatabaseInitiator().getCreatedConnection();
+    private static Menu menu = new Menu();
+    private static Validation validation = new Validation();
+    private static UserMenu userMenu = new UserMenu();
 
-     private static Menu menu =new Menu();
-     public static Menu getMenu(){
-         return menu;
-     }
 
-     private static Validation validation=new Validation();
-     public static Validation getValidation(){
-         return validation;
-     }
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
+    public static Menu getMenu() {
+        return menu;
+    }
+
+    public static Validation getValidation() {
+        return validation;
+    }
+
+    public static UserMenu getUserMenu() {
+        return userMenu;
+    }
 
 
 }
