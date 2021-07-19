@@ -7,7 +7,7 @@ public class PrintMessage {
 
 
     public static void printError(String message) {
-        System.out.println("|-------------------------------->>> "+message);
+        System.out.println("|>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> "+message);
 
 
     }

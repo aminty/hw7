@@ -108,7 +108,7 @@ public class UserRepo implements BaseRepo {
         PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
                 "DELETE FROM user WHERE id=?;");
         ps.setInt(1, id);
-        ps.executeQuery();
+        ps.executeUpdate();
         PrintMessage.printMsg("Your account was deleted successfuly .");
 
     }
@@ -140,5 +140,13 @@ public class UserRepo implements BaseRepo {
         ps.setInt(2, id);
         ps.executeUpdate();
         PrintMessage.printMsg(column + " was changed successfuly .");
+    }
+
+    public boolean isUserExist(int id) throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "select * from user where id=?");
+        ps.setInt(1, id);
+        ResultSet rs= ps.executeQuery();
+        return rs.next();
     }
 }

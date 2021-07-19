@@ -70,7 +70,9 @@ public class Menu {
                         break;
                     case 6:
                         runEditInfoMenu(user);
-                        break;
+                        if (!ApplicationObject.getUserRepo().isUserExist(user.getId()))
+                            break outer;
+                        break ;
                     case 7:
                         PrintMessage.printMsg("See you later ");
                         break outer;
@@ -103,11 +105,10 @@ public class Menu {
                         break;
                     case 2:
                         ApplicationObject.getUserMenu().changePassword(user.getId());
-                        break;
+                        break ;
                     case 3:
                         ApplicationObject.getUserMenu().removeAccount(user.getId());
-
-                        break;
+                        break outer;
                     case 4:
                         break outer;
                     default:
