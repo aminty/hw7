@@ -9,5 +9,15 @@ public class ApplicationObject {
          return connection;
      }
 
+     private static Menu menu =new Menu();
+     public static Menu getMenu(){
+         return menu;
+     }
+
+     private static Validation validation=new Validation();
+     public static Validation getValidation(){
+         return validation;
+     }
+
 
 }
