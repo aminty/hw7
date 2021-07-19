@@ -26,6 +26,7 @@ public class Menu {
                         ApplicationObject.getUserMenu().signUp();
                         break;
                     case 3:
+                        //todo show and reduce wallet article
                         break;
                     case 4:
                         ApplicationObject.getUserMenu().chargeCreadit();
@@ -58,20 +59,23 @@ public class Menu {
                         PrintMessage.printError("Wrong input !");
                         break;
                     case 1:
+                        ApplicationObject.getArticleMenu().PublishNewOne(user.getId());
                         break;
                     case 2:
+                        //todo edit my  article
                         break;
                     case 3:
+                        //todo show my article
                         break;
                     case 4:
                         ApplicationObject.getUserMenu().chargeCreadit(user.getUsername());
                         break;
                     case 5:
+                        //todo unpublished article
                         break;
                     case 6:
                         runEditInfoMenu(user);
-                        if (!ApplicationObject.getUserRepo().isUserExist(user.getId()))
-                            break outer;
+                        if (!ApplicationObject.getUserRepo().isUserExist(user.getId())) break outer;
                         break ;
                     case 7:
                         PrintMessage.printMsg("See you later ");

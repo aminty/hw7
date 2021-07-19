@@ -1,56 +1,63 @@
 package Entity;
 
 import java.sql.Timestamp;
-import java.util.Arrays;
 
 public class Article {
 
-    private User user;
-    private String brief;
+    private String username;
+    private String title;
     private String content;
-    private Category category;
+    private int category_id;
+    private String brief;
+    private String createDate;
+    private String publishDate;
+    private String lastUpdate;
+    private String isPublished;
     private Timestamp createdDate;
     private Timestamp lastUpdateDate;
     private Timestamp publishedDate;
-    private boolean isPublished;
     private boolean isFree;
-    private String price;
+    private int price;
     private Tag[] tags;
-
     public Article() {
     }
 
-    public Article(User user, String brief, String content,
-                   Category category, Timestamp createdDate,
-                   Timestamp lastUpdateDate, Timestamp publishedDate,
-                   boolean isPublished, boolean isFree, String price, Tag[] tags) {
-        this.user = user;
-        this.brief = brief;
+    public Article(String username, String title, String content,
+                   int category_id, String brief, String createDate,
+                   String publishDate, String lastUpdate, String isPublished,
+                   Timestamp createdDate, Timestamp lastUpdateDate,
+                   Timestamp publishedDate, boolean isFree, int price, Tag[] tags) {
+        this.username = username;
+        this.title = title;
         this.content = content;
-        this.category = category;
+        this.category_id = category_id;
+        this.brief = brief;
+        this.createDate = createDate;
+        this.publishDate = publishDate;
+        this.lastUpdate = lastUpdate;
+        this.isPublished = isPublished;
         this.createdDate = createdDate;
         this.lastUpdateDate = lastUpdateDate;
         this.publishedDate = publishedDate;
-        this.isPublished = isPublished;
         this.isFree = isFree;
         this.price = price;
         this.tags = tags;
     }
 
-    public User getUser() {
-        return user;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getBrief() {
-        return brief;
+    public String getTitle() {
+        return title;
     }
 
-    public void setBrief(String brief) {
-        this.brief = brief;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getContent() {
@@ -61,12 +68,52 @@ public class Article {
         this.content = content;
     }
 
-    public Category getCategory() {
-        return category;
+    public int getCategory_id() {
+        return category_id;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
+    }
+
+    public String getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(String createDate) {
+        this.createDate = createDate;
+    }
+
+    public String getPublishDate() {
+        return publishDate;
+    }
+
+    public void setPublishDate(String publishDate) {
+        this.publishDate = publishDate;
+    }
+
+    public String getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public void setLastUpdate(String lastUpdate) {
+        this.lastUpdate = lastUpdate;
+    }
+
+    public String getIsPublished() {
+        return isPublished;
+    }
+
+    public void setIsPublished(String isPublished) {
+        this.isPublished = isPublished;
     }
 
     public Timestamp getCreatedDate() {
@@ -93,27 +140,19 @@ public class Article {
         this.publishedDate = publishedDate;
     }
 
-    public boolean isPublished() {
-        return isPublished;
-    }
-
-    public void setPublished(boolean published) {
-        isPublished = published;
-    }
-
-    public boolean isFree() {
+    public boolean getIsFree() {
         return isFree;
     }
 
-    public void setFree(boolean free) {
+    public void setIsFree(boolean free) {
         isFree = free;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 

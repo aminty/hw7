@@ -28,7 +28,23 @@ public class ApplicationObject {
     private static Menu menu = new Menu();
     private static Validation validation = new Validation();
     private static UserMenu userMenu = new UserMenu();
+    private static ArticleMenu articleMenu=new ArticleMenu();
     private static UserRepo userRepo = new UserRepo();
+    private static ArticleRepo articleRepo = new ArticleRepo();
+    private static CategoryRepo categoryRepo = new CategoryRepo();
+    private static TagRepo tagRepo  = new TagRepo();
+
+    public static CategoryRepo getCategoryRepo() {
+        return categoryRepo;
+    }
+
+    public static TagRepo getTagRepo() {
+        return tagRepo;
+    }
+
+    public static ArticleRepo getArticleRepo() {
+        return articleRepo;
+    }
 
     public static Connection getConnection() {
         return connection;
@@ -40,6 +56,10 @@ public class ApplicationObject {
 
     public static Validation getValidation() {
         return validation;
+    }
+
+    public static ArticleMenu getArticleMenu() {
+        return articleMenu;
     }
 
     public static UserMenu getUserMenu() {

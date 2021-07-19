@@ -36,9 +36,19 @@ public class Validation {
             }else
             PrintMessage.printError("Invalid format , Try again !");
         }
-
         return "Untitled";
     }
+
+
+    public boolean checkId(String id) {
+        Pattern pt = Pattern.compile("^\\d$");
+        Matcher mt = pt.matcher(id);
+        return mt.matches();
+    }
+
+
+
+
 
 
 
