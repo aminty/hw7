@@ -11,11 +11,14 @@ public class User {
     private String password;
     private String nationalCode;
     private Timestamp birthday;
+    private double creadit;
 
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String username, String password, String nationalCode, Timestamp birthday) {
+    public User(int id, String firstName, String lastName,
+                String username, String password, String nationalCode,
+                Timestamp birthday, double creadit) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -23,6 +26,7 @@ public class User {
         this.password = password;
         this.nationalCode = nationalCode;
         this.birthday = birthday;
+        this.creadit = creadit;
     }
 
     public int getId() {
@@ -81,16 +85,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nationalCode='" + nationalCode + '\'' +
-                ", birthday=" + birthday +
-                '}';
+    public double getCreadit() {
+        return creadit;
+    }
+
+    public void setCreadit(double creadit) {
+        this.creadit = creadit;
     }
 }

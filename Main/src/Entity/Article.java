@@ -13,14 +13,17 @@ public class Article {
     private Timestamp lastUpdateDate;
     private Timestamp publishedDate;
     private boolean isPublished;
+    private boolean isFree;
+    private String price;
     private Tag[] tags;
 
     public Article() {
     }
 
-    public Article(User user, String brief, String content, Category category,
-                   Timestamp createdDate, Timestamp lastUpdateDate, Timestamp publishedDate,
-                   boolean isPublished, Tag[] tags) {
+    public Article(User user, String brief, String content,
+                   Category category, Timestamp createdDate,
+                   Timestamp lastUpdateDate, Timestamp publishedDate,
+                   boolean isPublished, boolean isFree, String price, Tag[] tags) {
         this.user = user;
         this.brief = brief;
         this.content = content;
@@ -29,6 +32,8 @@ public class Article {
         this.lastUpdateDate = lastUpdateDate;
         this.publishedDate = publishedDate;
         this.isPublished = isPublished;
+        this.isFree = isFree;
+        this.price = price;
         this.tags = tags;
     }
 
@@ -96,26 +101,27 @@ public class Article {
         isPublished = published;
     }
 
+    public boolean isFree() {
+        return isFree;
+    }
+
+    public void setFree(boolean free) {
+        isFree = free;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public Tag[] getTags() {
         return tags;
     }
 
     public void setTags(Tag[] tags) {
         this.tags = tags;
-    }
-
-    @Override
-    public String toString() {
-        return "Article{" +
-                "user=" + user +
-                ", brief='" + brief + '\'' +
-                ", content='" + content + '\'' +
-                ", category=" + category +
-                ", createdDate=" + createdDate +
-                ", lastUpdateDate=" + lastUpdateDate +
-                ", publishedDate=" + publishedDate +
-                ", isPublished=" + isPublished +
-                ", tags=" + Arrays.toString(tags) +
-                '}';
     }
 }
