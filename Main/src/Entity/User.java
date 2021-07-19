@@ -12,14 +12,14 @@ public class User {
     private String password;
     private String nationalCode;
     private String birthday;
-    private double creadit;
+    private int creadit;
 
     public User() {
     }
 
     public User(int id, String firstName, String lastName,
                 String username, String password, String nationalCode,
-                String birthday, double creadit) {
+                String birthday, int creadit) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -86,11 +86,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public double getCreadit() {
+    public int getCreadit() {
         return creadit;
     }
 
-    public void setCreadit(double creadit) {
+    public void setCreadit(int creadit) {
         this.creadit = creadit;
     }
 }

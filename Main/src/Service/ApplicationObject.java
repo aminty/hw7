@@ -1,6 +1,14 @@
 package Service;
 
+import Entity.Category;
+import Entity.User;
+import Repository.ArticleRepo;
+import Repository.CategoryRepo;
+import Repository.TagRepo;
+import Repository.UserRepo;
+
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ApplicationObject {
     public static final String DATE_REGEX = "(^[12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))$";
@@ -14,8 +22,7 @@ public class ApplicationObject {
     private static Menu menu = new Menu();
     private static Validation validation = new Validation();
     private static UserMenu userMenu = new UserMenu();
-
-
+    private static UserRepo userRepo = new UserRepo();
 
     public static Connection getConnection() {
         return connection;
@@ -33,5 +40,16 @@ public class ApplicationObject {
         return userMenu;
     }
 
+    public static UserRepo getUserRepo() {
+        return userRepo;
+    }
+
+    public static void tableCreator() throws SQLException {
+        new UserRepo().createUserTable();
+        new TagRepo().createTagTable();
+        new CategoryRepo().createCategoryTable();
+        new ArticleRepo().createArticleTable();
+        new TagRepo().createTakenTag();
+    }
 
 }

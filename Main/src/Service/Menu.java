@@ -1,10 +1,11 @@
 package Service;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
 
-    public void runPublicMenu() {
+    public void runPublicMenu() throws SQLException {
         outer:
         {
             while (true) {

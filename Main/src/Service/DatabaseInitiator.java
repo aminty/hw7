@@ -15,6 +15,7 @@ public class DatabaseInitiator {
                     "root",
                     "aminty2015");
             PrintMessage.printMsg("Connection created successfuly.");
+
             return connection;
 
 
