@@ -9,6 +9,7 @@ public class Article {
     private String content;
     private int category_id;
     private String brief;
+    private int id;
 
     private boolean isPublished;
     private Timestamp createdDate;
@@ -134,5 +135,25 @@ public class Article {
 
     public void setTags(int[] tag_id) {
         this.tags_id = tag_id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Article -->" +
+                " id=" + id +
+                ", title='" + title + '\'' +
+                ", brief='" + brief + '\'' +
+                ", isPublished=" + isPublished +
+                ", isFree=" + isFree +
+                ", price=" + price +
+                "";
     }
 }

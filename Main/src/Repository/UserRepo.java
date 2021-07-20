@@ -102,7 +102,6 @@ public class UserRepo implements BaseRepo {
 
     }
 
-
     public void deleteAccount(int id) throws SQLException {
 
         PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
@@ -135,7 +134,7 @@ public class UserRepo implements BaseRepo {
 
     public void setUserPassUpdate(int id, String column, String value) throws SQLException {
         PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
-                "update user  set "+column+"=?  where id = ?");
+                "update user  set " + column + "=?  where id = ?");
         ps.setString(1, value);
         ps.setInt(2, id);
         ps.executeUpdate();
@@ -146,7 +145,46 @@ public class UserRepo implements BaseRepo {
         PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
                 "select * from user where id=?");
         ps.setInt(1, id);
-        ResultSet rs= ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
         return rs.next();
     }
+
+    public void getUnApprovedAccount() throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "select * from user where isApprove=false");
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            System.out.println("[ " + rs.getInt("id") + " - " + rs.getString("username") + " ]");
+        }
+    }
+
+    public void setApproveAccount(int user_id) throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "update user  set isApprove=?  where id = ?");
+        ps.setBoolean(1, true);
+        ps.setInt(2, user_id);
+        ps.executeUpdate();
+        PrintMessage.printMsg("Account approved successfuly .");
+    }
+
+    public void getActiveAccount() throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "select * from user where isApprove=true");
+
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            System.out.println("[ " + rs.getInt("id") + " - " + rs.getString("username") + " ]");
+        }
+    }
+
+    public void seBlockAccount(int user_id) throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "update user  set isApprove=?  where id = ?");
+        ps.setBoolean(1, false);
+        ps.setInt(2, user_id);
+        ps.executeUpdate();
+        PrintMessage.printMsg("Account blocked successfuly .");
+    }
+
 }

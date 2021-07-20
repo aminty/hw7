@@ -28,7 +28,9 @@ public class ArticleMenu {
                 "(^yes$)|(^no$)"));
 
         article.setCreatedDate(new Timestamp(date.getTime()));
+        if (article.getIsPublished())
         article.setPublishedDate(new Timestamp(date.getTime()));
+
         article.setLastUpdateDate(new Timestamp(date.getTime()));
 
         ApplicationObject.getArticleRepo().addNewArticle(article);
@@ -41,7 +43,6 @@ public class ArticleMenu {
 
         }
         PrintMessage.printMsg("Your article wrote successfuly .");
-
 
     }
 
@@ -177,4 +178,46 @@ public class ArticleMenu {
             }
         }
     }
+
+    public void showMyArticle(int id) throws SQLException {
+       ApplicationObject.getArticleRepo().getArticleInfo(id);
+
+
+
+    }
+
+    public void setPublic() throws SQLException {
+        ApplicationObject.getArticleRepo().getPrivateArticle();
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want make public any article ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.print(" - Enter article id :");
+            String article_id = new Scanner(System.in).next();
+            if (ApplicationObject.getValidation().checkInteger(article_id)) {
+                if (ApplicationObject.getArticleRepo().isTitleExist(Integer.parseInt(article_id))) {
+                    ApplicationObject.getArticleRepo().setPublicArticle(Integer.parseInt(article_id));
+                } else PrintMessage.printError("This article does not exist !");
+            }
+        }
+
+
+    }
+
+    public void setPrivate() throws SQLException {
+        ApplicationObject.getArticleRepo().getPublicArticle();
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want make private any article ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.print(" - Enter article id :");
+            String article_id = new Scanner(System.in).next();
+            if (ApplicationObject.getValidation().checkInteger(article_id)) {
+                if (ApplicationObject.getArticleRepo().isTitleExist(Integer.parseInt(article_id))) {
+                    ApplicationObject.getArticleRepo().setPrivateArticle(Integer.parseInt(article_id));
+                } else PrintMessage.printError("This article does not exist !");
+            }
+        }
+
+
+    }
+
+
+
 }
