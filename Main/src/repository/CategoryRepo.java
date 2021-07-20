@@ -1,7 +1,7 @@
-package Repository;
+package repository;
 
-import Service.ApplicationObject;
-import Service.PrintMessage;
+import service.ApplicationObject;
+import service.PrintMessage;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,6 +19,7 @@ public class CategoryRepo {
         statement.close();
         initialCategory();
     }
+
     private void initialCategory() throws SQLException {
         Statement statement = ApplicationObject.getConnection().createStatement();
         // ResultSet rs=statement.executeQuery("select count(categoryName) from category");
@@ -38,6 +39,7 @@ public class CategoryRepo {
             prstm.executeUpdate();
         }
     }
+
     public boolean isCategoryExist(int id) throws SQLException {
         PreparedStatement ps =
                 ApplicationObject.getConnection().prepareStatement(
@@ -47,12 +49,13 @@ public class CategoryRepo {
         ResultSet rs = ps.executeQuery();
         return rs.next();
     }
+
     public void getCategoryTable() throws SQLException {
         Statement stm = ApplicationObject.getConnection().createStatement();
         ResultSet rs = stm.executeQuery("select * from category");
         if (rs.next()) {
             do {
-                System.out.print("[ " + rs.getString("id") + " - "+rs.getString("categoryName")+" ]  ");
+                System.out.print("[ " + rs.getString("id") + " - " + rs.getString("categoryName") + " ]  ");
             } while (rs.next());
         } else
             System.out.println("Category table is empty !");
@@ -60,6 +63,7 @@ public class CategoryRepo {
         System.out.println();
         stm.close();
     }
+
     public boolean isCategoryExist(String categoryName) throws SQLException {
         PreparedStatement ps =
                 ApplicationObject.getConnection().prepareStatement(
@@ -69,16 +73,17 @@ public class CategoryRepo {
         ResultSet rs = ps.executeQuery();
         return rs.next();
     }
+
     public void addNewCategory(String categoryName) throws SQLException {
 
-            PreparedStatement ps =
-                    ApplicationObject.getConnection().prepareStatement(
-                            "insert into category (categoryName) values (?)"
-                    );
-            ps.setString(1, categoryName);
-            PrintMessage.printMsg("Category (" + categoryName + ") added successfuly");
-            ps.executeUpdate();
-            ps.close();
+        PreparedStatement ps =
+                ApplicationObject.getConnection().prepareStatement(
+                        "insert into category (categoryName) values (?)"
+                );
+        ps.setString(1, categoryName);
+        PrintMessage.printMsg("Category (" + categoryName + ") added successfuly");
+        ps.executeUpdate();
+        ps.close();
 
     }
 }

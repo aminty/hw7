@@ -1,7 +1,4 @@
-package Entity;
-
-import java.sql.Timestamp;
-import java.util.Date;
+package entity;
 
 public class User {
 

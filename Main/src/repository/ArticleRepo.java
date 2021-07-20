@@ -1,8 +1,8 @@
-package Repository;
+package repository;
 
-import Entity.Article;
-import Service.ApplicationObject;
-import Service.PrintMessage;
+import entity.Article;
+import service.ApplicationObject;
+import service.PrintMessage;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -215,7 +215,6 @@ public class ArticleRepo implements BaseRepo {
         ps.executeUpdate();
         PrintMessage.printMsg("Article made public successfuly .");
     }
-
 
     @Override
     public void findAll() {

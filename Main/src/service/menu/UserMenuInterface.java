@@ -1,6 +1,4 @@
-package Service;
-
-import Entity.User;
+package service.menu;
 
 import java.sql.SQLException;
 

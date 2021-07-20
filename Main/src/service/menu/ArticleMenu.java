@@ -1,7 +1,9 @@
-package Service;
+package service.menu;
 
-import Entity.Article;
-import Entity.User;
+import entity.Article;
+import entity.User;
+import service.ApplicationObject;
+import service.PrintMessage;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -9,8 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import static Service.ApplicationObject.DECIMAL_REGEX;
-import static Service.ApplicationObject.tableCreator;
+import static service.ApplicationObject.DECIMAL_REGEX;
 
 public class ArticleMenu {
     public void PublishNewOne(int id) throws SQLException {
@@ -278,7 +279,7 @@ public class ArticleMenu {
         Article article=new Article();
         User user=new User();
         ApplicationObject.getArticleRepo().getArticleTitle();
-        System.out.println(" - Enter article id to show :");
+        System.out.print(" - Enter article id to show :");
         int article_id=new Scanner(System.in).nextInt();
          article=ApplicationObject.getArticleRepo().getArticleInfo(article_id);
         if (article.getIsFree()){

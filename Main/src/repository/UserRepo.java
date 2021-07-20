@@ -1,8 +1,8 @@
-package Repository;
+package repository;
 
-import Entity.User;
-import Service.ApplicationObject;
-import Service.PrintMessage;
+import entity.User;
+import service.ApplicationObject;
+import service.PrintMessage;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

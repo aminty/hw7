@@ -1,4 +1,4 @@
-package Entity;
+package entity;
 
 public class Tag {
     private int id;

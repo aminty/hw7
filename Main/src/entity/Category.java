@@ -1,7 +1,7 @@
-package Entity;
+package entity;
 
 public class Category {
-    private  String categoryName;
+    private String categoryName;
     private int id;
 
     public Category() {

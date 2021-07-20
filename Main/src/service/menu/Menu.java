@@ -1,6 +1,8 @@
-package Service;
+package service.menu;
 
-import Entity.User;
+import entity.User;
+import service.ApplicationObject;
+import service.PrintMessage;
 
 import java.sql.SQLException;
 import java.util.Scanner;

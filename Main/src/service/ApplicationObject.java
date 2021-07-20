@@ -1,13 +1,13 @@
-package Service;
+package service;
 
-import Entity.Category;
-import Entity.User;
-import Repository.ArticleRepo;
-import Repository.CategoryRepo;
-import Repository.TagRepo;
-import Repository.UserRepo;
+import repository.ArticleRepo;
+import repository.CategoryRepo;
+import repository.TagRepo;
+import repository.UserRepo;
+import service.menu.ArticleMenu;
+import service.menu.Menu;
+import service.menu.UserMenu;
 
-import java.security.PublicKey;
 import java.sql.Connection;
 import java.sql.SQLException;
 
