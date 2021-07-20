@@ -4,9 +4,11 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static Service.ApplicationObject.DECIMAL_REGEX;
+
 public class Validation {
 
-    public int checkInt(String input) {
+    public int checkItemSelectValue(String input) {
         Pattern pt = Pattern.compile("^\\d{1}$");
         Matcher mt = pt.matcher(String.valueOf(input));
         if (mt.matches())
@@ -26,7 +28,7 @@ public class Validation {
     public String entryData(String message,String regex) {
         Scanner sc = new Scanner(System.in);
         boolean flag = true;
-        while (flag) {
+        while (true) {
             System.out.printf(" - %s ", message);
             String value = sc.nextLine().trim();
             if (value.equals("0"))break;
@@ -39,12 +41,34 @@ public class Validation {
         return "Untitled";
     }
 
-
-    public boolean checkId(String id) {
-        Pattern pt = Pattern.compile("^\\d$");
+    public boolean checkInteger(String id) {
+        Pattern pt = Pattern.compile(DECIMAL_REGEX);
         Matcher mt = pt.matcher(id);
         return mt.matches();
     }
+
+    public boolean yesOrNoQuestion(String message,String regex){
+        Scanner sc = new Scanner(System.in);
+        boolean flag = true;
+        while (flag) {
+            System.out.printf(" - %s ", message);
+            String value = sc.next().trim();
+            if (value.equals("0"))break;
+            if (isValidData(value,regex)) {
+                if (value.equals("yes")){
+                    flag = false;
+                    return true;
+                }else if (value.equals("no")){
+                    flag = false;
+                    return false;
+                }
+
+            }else
+                PrintMessage.printError("Invalid format , Try again !");
+        }
+        return false;
+    }
+
 
 
 

@@ -4,52 +4,48 @@ import java.sql.Timestamp;
 
 public class Article {
 
-    private String username;
+    private int userId;
     private String title;
     private String content;
     private int category_id;
     private String brief;
-    private String createDate;
-    private String publishDate;
-    private String lastUpdate;
-    private String isPublished;
+
+    private boolean isPublished;
     private Timestamp createdDate;
     private Timestamp lastUpdateDate;
     private Timestamp publishedDate;
     private boolean isFree;
     private int price;
-    private Tag[] tags;
+    private int[] tags_id;
+
     public Article() {
     }
 
-    public Article(String username, String title, String content,
-                   int category_id, String brief, String createDate,
-                   String publishDate, String lastUpdate, String isPublished,
+    public Article(int userId, String title, String content,
+                   int category_id, String brief, boolean isPublished,
                    Timestamp createdDate, Timestamp lastUpdateDate,
-                   Timestamp publishedDate, boolean isFree, int price, Tag[] tags) {
-        this.username = username;
+                   Timestamp publishedDate, boolean isFree, int price, int[] tag_id) {
+        this.userId = userId;
         this.title = title;
         this.content = content;
         this.category_id = category_id;
         this.brief = brief;
-        this.createDate = createDate;
-        this.publishDate = publishDate;
-        this.lastUpdate = lastUpdate;
+
         this.isPublished = isPublished;
         this.createdDate = createdDate;
         this.lastUpdateDate = lastUpdateDate;
         this.publishedDate = publishedDate;
         this.isFree = isFree;
         this.price = price;
-        this.tags = tags;
+        this.tags_id = tags_id;
     }
 
-    public String getUsername() {
-        return username;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -84,35 +80,11 @@ public class Article {
         this.brief = brief;
     }
 
-    public String getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(String createDate) {
-        this.createDate = createDate;
-    }
-
-    public String getPublishDate() {
-        return publishDate;
-    }
-
-    public void setPublishDate(String publishDate) {
-        this.publishDate = publishDate;
-    }
-
-    public String getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(String lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
-    public String getIsPublished() {
+    public boolean getIsPublished() {
         return isPublished;
     }
 
-    public void setIsPublished(String isPublished) {
+    public void setIsPublished(boolean isPublished) {
         this.isPublished = isPublished;
     }
 
@@ -156,11 +128,11 @@ public class Article {
         this.price = price;
     }
 
-    public Tag[] getTags() {
-        return tags;
+    public int[] getTags() {
+        return tags_id;
     }
 
-    public void setTags(Tag[] tags) {
-        this.tags = tags;
+    public void setTags(int[] tag_id) {
+        this.tags_id = tag_id;
     }
 }

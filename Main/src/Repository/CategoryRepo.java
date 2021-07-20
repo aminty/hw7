@@ -26,7 +26,7 @@ public class CategoryRepo {
         if (!rs.next()) {
             PreparedStatement prstm = ApplicationObject.getConnection().prepareStatement(
                     "insert into category(categoryName) values (?)");
-            prstm.setString(1, "Technology");
+            prstm.setString(1, "Unspecified");
             prstm.executeUpdate();
             prstm.setString(1, "Political");
             prstm.executeUpdate();

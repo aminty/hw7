@@ -15,7 +15,7 @@ public class Menu {
                 PrintMessage.printMenu(ApplicationObject.PUBLIC_MENU);
                 System.out.print("- Choose an item :");
                 String selectedItem = new Scanner(System.in).next();
-                switch (ApplicationObject.getValidation().checkInt(selectedItem)) {
+                switch (ApplicationObject.getValidation().checkItemSelectValue(selectedItem)) {
                     case 0:
                         PrintMessage.printError("Wrong input !");
                         break;
@@ -42,7 +42,6 @@ public class Menu {
         }
     }
 
-
     public void runAuthorMenu(User user) throws SQLException {
         outer:
         {
@@ -54,7 +53,7 @@ public class Menu {
                 else PrintMessage.printMenu(ApplicationObject.AUTHOR_MENU);
                 System.out.print("- Choose an item :");
                 String selectedItem = new Scanner(System.in).next();
-                switch (ApplicationObject.getValidation().checkInt(selectedItem)) {
+                switch (ApplicationObject.getValidation().checkItemSelectValue(selectedItem)) {
                     case 0:
                         PrintMessage.printError("Wrong input !");
                         break;
@@ -100,7 +99,7 @@ public class Menu {
                 PrintMessage.printMenu(ApplicationObject.EDIT_INFO_MENU);
                 System.out.print("- Choose an item :");
                 String selectedItem = new Scanner(System.in).next();
-                switch (ApplicationObject.getValidation().checkInt(selectedItem)) {
+                switch (ApplicationObject.getValidation().checkItemSelectValue(selectedItem)) {
                     case 0:
                         PrintMessage.printError("Wrong input !");
                         break;
