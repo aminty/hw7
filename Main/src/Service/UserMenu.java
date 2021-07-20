@@ -98,7 +98,7 @@ public class UserMenu implements UserMenuInterface {
                     ApplicationObject.getUserRepo().setUserPassUpdate(id, "username", username);
                     break;
                 } else PrintMessage.printError("This username was taken !");
-            }else break;
+            } else break;
         }
     }
 
@@ -113,6 +113,38 @@ public class UserMenu implements UserMenuInterface {
     @Override
     public void removeAccount(int id) throws SQLException {
         ApplicationObject.getUserRepo().deleteAccount(id);
+
+    }
+
+    public void approveAccount() throws SQLException {
+        ApplicationObject.getUserRepo().getUnApprovedAccount();
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want approve any account ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.print(" - Enter account id :");
+            String user_id = new Scanner(System.in).next();
+            if (ApplicationObject.getValidation().checkInteger(user_id)) {
+                if (ApplicationObject.getUserRepo().isUserExist(Integer.parseInt(user_id))) {
+                    ApplicationObject.getUserRepo().setApproveAccount(Integer.parseInt(user_id));
+                } else PrintMessage.printError("This user does not exist !");
+            }
+        }
+
+
+    }
+
+    public void blockAccount() throws SQLException {
+        ApplicationObject.getUserRepo().getActiveAccount();
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want block any account ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.print(" - Enter account id :");
+            String user_id = new Scanner(System.in).next();
+            if (ApplicationObject.getValidation().checkInteger(user_id)) {
+                if (ApplicationObject.getUserRepo().isUserExist(Integer.parseInt(user_id))) {
+                    ApplicationObject.getUserRepo().seBlockAccount(Integer.parseInt(user_id));
+                } else PrintMessage.printError("This user does not exist !");
+            }
+        }
+
 
     }
 }

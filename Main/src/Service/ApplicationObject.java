@@ -19,20 +19,22 @@ public class ApplicationObject {
     public static final String PASSWORD_REGEX = "^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$";
     public static final String USERNAME_REGEX = "^[A-Za-z]\\w{5,29}$";
     public static final String DECIMAL_REGEX = "^\\d+$";
-    public static final String[] AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Unpublished", "Change info", "Exit"};
-    public static final String[] ADMIN_AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Unpublished", "Change info", "Exit", "Account managment"};
-    public static final String [] PUBLIC_MENU={"Login", "Sign up", "Show article", "Charge creadit", "Exit"};
-    public static final String [] EDIT_INFO_MENU={"Edit username", "Change password", "Delete Account", "Exit"};
+    public static final String[] AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Change article status", "Change info", "Exit"};
+    public static final String[] ADMIN_AUTHOR_MENU = {"Publish new", "Edit Article", "Show my article", "Charge creadit", "Change article status", "Change info", "Exit", "Account managment"};
+    public static final String[] PUBLIC_MENU = {"Login", "Sign up", "Show article", "Charge creadit", "Exit"};
+    public static final String[] EDIT_INFO_MENU = {"Edit username", "Change password", "Delete Account", "Exit"};
+    public static final String[] MANAGE_ACCOUNT = {"Approve account", "Block Account", "Exit"};
+    public static final String[] CHANGE_STATUS = {"Make public", "Make private", "Exit"};
 
     private static Connection connection = new DatabaseInitiator().getCreatedConnection();
     private static Menu menu = new Menu();
     private static Validation validation = new Validation();
     private static UserMenu userMenu = new UserMenu();
-    private static ArticleMenu articleMenu=new ArticleMenu();
+    private static ArticleMenu articleMenu = new ArticleMenu();
     private static UserRepo userRepo = new UserRepo();
     private static ArticleRepo articleRepo = new ArticleRepo();
     private static CategoryRepo categoryRepo = new CategoryRepo();
-    private static TagRepo tagRepo  = new TagRepo();
+    private static TagRepo tagRepo = new TagRepo();
 
     public static CategoryRepo getCategoryRepo() {
         return categoryRepo;

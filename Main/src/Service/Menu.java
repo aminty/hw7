@@ -64,24 +64,24 @@ public class Menu {
                         //todo edit my  article
                         break;
                     case 3:
-                        //todo show my article
+                        ApplicationObject.getArticleMenu().showMyArticle(user.getId());
                         break;
                     case 4:
                         ApplicationObject.getUserMenu().chargeCreadit(user.getUsername());
                         break;
                     case 5:
-                        //todo unpublished article
+                        runStatusArticle();
                         break;
                     case 6:
                         runEditInfoMenu(user);
                         if (!ApplicationObject.getUserRepo().isUserExist(user.getId())) break outer;
-                        break ;
+                        break;
                     case 7:
                         PrintMessage.printMsg("See you later ");
                         break outer;
                     case 8:
                         if (user.isAdmin()) {
-                            //Todo approve or block account.
+                            runManageAccount();
                         }
                         break;
                     default:
@@ -92,8 +92,59 @@ public class Menu {
         }
     }
 
+    private void runManageAccount() throws SQLException {
+        outer:
+        {
+            while (true) {
+                System.out.println("--------------------------");
+                PrintMessage.printMenu(ApplicationObject.MANAGE_ACCOUNT);
+                System.out.print("- Choose an item :");
+                String selectedItem = new Scanner(System.in).next();
+                switch (ApplicationObject.getValidation().checkItemSelectValue(selectedItem)) {
+                    case 0:
+                        PrintMessage.printError("Wrong input !");
+                        break;
+                    case 1:
+                        ApplicationObject.getUserMenu().approveAccount();
+                        break;
+                    case 2:
+                        ApplicationObject.getUserMenu().blockAccount();
+                        break;
+                    case 3:
+                        break outer;
+                }
+            }
+        }
+    }
+
+    private void runStatusArticle() throws SQLException {
+        outer:
+        {
+            while (true) {
+                System.out.println("--------------------------");
+                PrintMessage.printMenu(ApplicationObject.CHANGE_STATUS);
+                System.out.print("- Choose an item :");
+                String selectedItem = new Scanner(System.in).next();
+                switch (ApplicationObject.getValidation().checkItemSelectValue(selectedItem)) {
+                    case 0:
+                        PrintMessage.printError("Wrong input !");
+                        break;
+                    case 1:
+                        ApplicationObject.getArticleMenu().setPublic();
+                        break;
+                    case 2:
+                        ApplicationObject.getArticleMenu().setPrivate();
+                        break;
+                    case 3:
+                        break outer;
+                }
+            }
+        }
+    }
+
     public void runEditInfoMenu(User user) throws SQLException {
-        outer:{
+        outer:
+        {
             while (true) {
                 System.out.println("--------------------------");
                 PrintMessage.printMenu(ApplicationObject.EDIT_INFO_MENU);
@@ -108,7 +159,7 @@ public class Menu {
                         break;
                     case 2:
                         ApplicationObject.getUserMenu().changePassword(user.getId());
-                        break ;
+                        break;
                     case 3:
                         ApplicationObject.getUserMenu().removeAccount(user.getId());
                         break outer;
