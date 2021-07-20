@@ -26,7 +26,7 @@ public class Menu {
                         ApplicationObject.getUserMenu().signUp();
                         break;
                     case 3:
-                        //todo show and reduce wallet article
+                        ApplicationObject.getArticleMenu().showArticleInPublic();
                         break;
                     case 4:
                         ApplicationObject.getUserMenu().chargeCreadit();

@@ -1,6 +1,7 @@
 package Service;
 
 import Entity.Article;
+import Entity.User;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import static Service.ApplicationObject.DECIMAL_REGEX;
+import static Service.ApplicationObject.tableCreator;
 
 public class ArticleMenu {
     public void PublishNewOne(int id) throws SQLException {
@@ -270,5 +272,34 @@ public class ArticleMenu {
         ApplicationObject.getArticleRepo().setArticleUpdate(article);
 
 
+    }
+
+    public void showArticleInPublic() throws SQLException {
+        Article article=new Article();
+        User user=new User();
+        ApplicationObject.getArticleRepo().getArticleTitle();
+        System.out.println(" - Enter article id to show :");
+        int article_id=new Scanner(System.in).nextInt();
+         article=ApplicationObject.getArticleRepo().getArticleInfo(article_id);
+        if (article.getIsFree()){
+            PrintMessage.printArticle(article);
+        }else {
+            PrintMessage.printMsg("This article is not free");
+            System.out.print(" - For view Enter your username else 0 :");
+            String username=new Scanner(System.in).next();
+            if (username.equals("0"))
+                return;
+            else {
+                if (ApplicationObject.getUserRepo().isUsernameExist(username)){
+                   user= ApplicationObject.getUserRepo().getUserInfo(username);
+                   if (user.getCreadit()>article.getPrice()){
+                       ApplicationObject.getUserRepo().updateCreadit(username,user.getCreadit()-article.getPrice());
+                       PrintMessage.printArticle(article);
+                   }else
+                       PrintMessage.printMsg("Re-charge your account and try again !");
+
+                }
+            }
+        }
     }
 }

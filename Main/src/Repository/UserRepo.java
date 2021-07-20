@@ -121,6 +121,15 @@ public class UserRepo implements BaseRepo {
         PrintMessage.printMsg(price + " Tomans was deposited in your account");
     }
 
+    public void updateCreadit(String username, int newBalance) throws SQLException {
+        PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
+                "update user  set creadit=?  where username = ?");
+        ps.setInt(1, newBalance);
+        ps.setString(2, username);
+        ps.executeUpdate();
+        PrintMessage.printMsg("Payment was successful.");
+    }
+
     public int getCreadit(String username) throws SQLException {
         PreparedStatement ps = ApplicationObject.getConnection().prepareStatement(
                 "select creadit from user where username = ?");

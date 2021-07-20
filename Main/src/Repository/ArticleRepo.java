@@ -130,19 +130,27 @@ public class ArticleRepo implements BaseRepo {
         }
     }
 
-    public void getArticleTitle(boolean isFree) throws SQLException {
+    public void getArticleTitle() throws SQLException {
         Article article = new Article();
         PreparedStatement pr = ApplicationObject.getConnection().prepareStatement(
-                "SELECT * from article where isFree=?"
+                "select username,a.id,title,brief,categoryName,isFree from user inner join article a on user.id = a.user_id\n" +
+                        "    inner join category c on a.category_id = c.id order by case when isFree=true then 1 when isFree=false then 2 end ;"
         );
-        pr.setBoolean(1, isFree);
         ResultSet rs = pr.executeQuery();
         while (rs.next()) {
-            article.setId(rs.getInt("id"));
-            article.setTitle(rs.getString("title"));
 
-            System.out.println("[ " + rs.getInt("id") +
-                    " - " + rs.getString("title") + " ]");
+            System.out.println("[ "+
+                   "Author :"+ rs.getString("username")+
+                    "  -  article-id :"+rs.getInt("id")+
+                    "  -  title :"+rs.getString("title")+
+                    "  -  brief :"+rs.getString("brief")+
+                    "  -  category :"+rs.getString("categoryName")+
+                    "  -  is free :"+rs.getBoolean("isFree")+
+
+                    " ]");
+
+
+
         }
     }
 
