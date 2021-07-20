@@ -8,10 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-public class ArticleRepo {
+public class ArticleRepo implements BaseRepo {
     public void createArticleTable() throws SQLException {
         Statement stm = ApplicationObject.getConnection().createStatement();
         stm.executeUpdate("CREATE table IF not EXISTS article (id int AUTO_INCREMENT not null primary key," +
@@ -41,6 +39,7 @@ public class ArticleRepo {
         ResultSet rs = ps.executeQuery();
         return rs.next();
     }
+
     public boolean isTitleExist(int id) throws SQLException {
         PreparedStatement ps =
                 ApplicationObject.getConnection().prepareStatement(
@@ -91,12 +90,12 @@ public class ArticleRepo {
 
     }
 
-    public void getArticleInfo(int id) throws SQLException {
+    public void getArticleInfoByUserId(int user_id) throws SQLException {
         Article article = new Article();
         PreparedStatement pr = ApplicationObject.getConnection().prepareStatement(
                 "SELECT * from article where user_id=?"
         );
-        pr.setInt(1, id);
+        pr.setInt(1, user_id);
         ResultSet rs = pr.executeQuery();
         while (rs.next()) {
             article.setId(rs.getInt("id"));
@@ -112,9 +111,63 @@ public class ArticleRepo {
             article.setPublishedDate(rs.getTimestamp("publishDate"));
             article.setLastUpdateDate(rs.getTimestamp("lastUpdate"));
             System.out.println(article.toString());
-
         }
+    }
 
+    public void getArticleTitle(int user_id) throws SQLException {
+        Article article = new Article();
+        PreparedStatement pr = ApplicationObject.getConnection().prepareStatement(
+                "SELECT * from article where user_id=?"
+        );
+        pr.setInt(1, user_id);
+        ResultSet rs = pr.executeQuery();
+        while (rs.next()) {
+            article.setId(rs.getInt("id"));
+            article.setTitle(rs.getString("title"));
+
+            System.out.println("[ " + rs.getInt("id") +
+                    " - " + rs.getString("title") + " ]");
+        }
+    }
+
+    public void getArticleTitle(boolean isFree) throws SQLException {
+        Article article = new Article();
+        PreparedStatement pr = ApplicationObject.getConnection().prepareStatement(
+                "SELECT * from article where isFree=?"
+        );
+        pr.setBoolean(1, isFree);
+        ResultSet rs = pr.executeQuery();
+        while (rs.next()) {
+            article.setId(rs.getInt("id"));
+            article.setTitle(rs.getString("title"));
+
+            System.out.println("[ " + rs.getInt("id") +
+                    " - " + rs.getString("title") + " ]");
+        }
+    }
+
+    public Article getArticleInfo(int article_id) throws SQLException {
+        Article article = new Article();
+        PreparedStatement pr = ApplicationObject.getConnection().prepareStatement(
+                "SELECT * from article where id=?"
+        );
+        pr.setInt(1, article_id);
+        ResultSet rs = pr.executeQuery();
+        while (rs.next()) {
+            article.setId(rs.getInt("id"));
+            article.setTitle(rs.getString("title"));
+            article.setUserId(rs.getInt("user_id"));
+            article.setBrief(rs.getString("brief"));
+            article.setContent(rs.getString("content"));
+            article.setCategory_id(rs.getInt("category_id"));
+            article.setIsFree(rs.getBoolean("isFree"));
+            article.setPrice(rs.getInt("price"));
+            article.setIsPublished(rs.getBoolean("isPublished"));
+            article.setCreatedDate(rs.getTimestamp("createDate"));
+            article.setPublishedDate(rs.getTimestamp("publishDate"));
+            article.setLastUpdateDate(rs.getTimestamp("lastUpdate"));
+        }
+        return article;
     }
 
     public void getPrivateArticle() throws SQLException {
@@ -156,4 +209,40 @@ public class ArticleRepo {
     }
 
 
+    @Override
+    public void findAll() {
+
+    }
+
+    @Override
+    public void delete(int id) throws SQLException {
+
+    }
+
+    public void setArticleUpdate(Article article) throws SQLException {
+        PreparedStatement pr=ApplicationObject.getConnection().prepareStatement(
+                "update article  set " +
+                        "title= ? ," +
+                        " brief = ? ," +
+                        " content = ? ," +
+                        "lastUpdate=? , " +
+                        "category_id=? ," +
+                        " price=? , " +
+                        "isFree=?" +
+                        " where id=?"
+        );
+        pr.setString(1,article.getTitle());
+        pr.setString(2,article.getBrief());
+        pr.setString(3,article.getContent());
+        pr.setTimestamp(4,article.getLastUpdateDate());
+        pr.setInt(5,article.getCategory_id());
+
+        pr.setInt(6,article.getPrice());
+        pr.setBoolean(7,article.getIsFree());
+        pr.setInt(8,article.getId());
+
+        pr.executeUpdate();
+        PrintMessage.printMsg("Article updated successfuly !");
+
+    }
 }

@@ -61,7 +61,7 @@ public class Menu {
                         ApplicationObject.getArticleMenu().PublishNewOne(user.getId());
                         break;
                     case 2:
-                        //todo edit my  article
+                        ApplicationObject.getArticleMenu().editArticle(user.getId());
                         break;
                     case 3:
                         ApplicationObject.getArticleMenu().showMyArticle(user.getId());

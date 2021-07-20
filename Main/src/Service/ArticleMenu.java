@@ -1,7 +1,6 @@
 package Service;
 
 import Entity.Article;
-import Entity.Tag;
 
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,23 +22,23 @@ public class ArticleMenu {
         article.setContent(setContentForArticle());
         article.setIsFree(ApplicationObject.getValidation().yesOrNoQuestion("Do you want publish your article as free ?",
                 "(^yes$)|(^no$)"));
-        article.setPrice(!article.getIsFree() ?setPriceForArticle():0);
+        article.setPrice(!article.getIsFree() ? setPriceForArticle() : 0);
         article.setIsPublished(ApplicationObject.getValidation().yesOrNoQuestion("Do you want publish your article ?",
                 "(^yes$)|(^no$)"));
 
         article.setCreatedDate(new Timestamp(date.getTime()));
         if (article.getIsPublished())
-        article.setPublishedDate(new Timestamp(date.getTime()));
+            article.setPublishedDate(new Timestamp(date.getTime()));
 
         article.setLastUpdateDate(new Timestamp(date.getTime()));
 
         ApplicationObject.getArticleRepo().addNewArticle(article);
 
         article.setTags(setTgForArticle());
-        for (int i: article.getTags()) {
+        for (int i : article.getTags()) {
             ApplicationObject.getTagRepo().takenTagByArticle(id,
                     getArticleId(article.getTitle())
-                    ,i);
+                    , i);
 
         }
         PrintMessage.printMsg("Your article wrote successfuly .");
@@ -51,39 +50,40 @@ public class ArticleMenu {
     }
 
     private int[] setTgForArticle() throws SQLException {
-        ArrayList<Integer> listTagId=new ArrayList<>();
+        ArrayList<Integer> listTagId = new ArrayList<>();
         ApplicationObject.getTagRepo().getTagTable();
         if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want to add new tag ? (yes/no) ",
                 "(^yes$)|(^no$)")) {
             addNewTag();
             return setTgForArticle();
-        }else
-        while (true) {
-            ApplicationObject.getTagRepo().getTagTable();
-            System.out.print(" - Choose a tag : ");
-            String tag_id = new Scanner(System.in).next();
-            if (tag_id.equals("0"))break;
-            if (ApplicationObject.getValidation().checkInteger(tag_id)) {
-                if (ApplicationObject.getCategoryRepo().isCategoryExist(Integer.parseInt(tag_id))){
-                    if (!listTagId.contains(Integer.parseInt(tag_id))){
-                    listTagId.add(Integer.parseInt(tag_id));}
-            }else {
-                    PrintMessage.printError("This category does not exsit !");
+        } else
+            while (true) {
+                ApplicationObject.getTagRepo().getTagTable();
+                System.out.print(" - Choose a tag : ");
+                String tag_id = new Scanner(System.in).next();
+                if (tag_id.equals("0")) break;
+                if (ApplicationObject.getValidation().checkInteger(tag_id)) {
+                    if (ApplicationObject.getCategoryRepo().isCategoryExist(Integer.parseInt(tag_id))) {
+                        if (!listTagId.contains(Integer.parseInt(tag_id))) {
+                            listTagId.add(Integer.parseInt(tag_id));
+                        }
+                    } else {
+                        PrintMessage.printError("This category does not exsit !");
+                        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want to add new category ? (yes/no) ",
+                                "(^yes$)|(^no$)")) {
+                            addNewTag();
+                        } else break;
+                    }
+                } else {
+                    PrintMessage.printError("Invalid format !");
                     if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want to add new category ? (yes/no) ",
                             "(^yes$)|(^no$)")) {
                         addNewTag();
-                    }else break;
-                }
-            } else {
-                PrintMessage.printError("Invalid format !");
-                if( ApplicationObject.getValidation().yesOrNoQuestion("Do you want to add new category ? (yes/no) ",
-                        "(^yes$)|(^no$)")) {
-                    addNewTag();
-                    int[] arr = listTagId.stream().mapToInt(i -> i).toArray();
-                    return arr;
+                        int[] arr = listTagId.stream().mapToInt(i -> i).toArray();
+                        return arr;
+                    }
                 }
             }
-        }
         int[] arr = listTagId.stream().mapToInt(i -> i).toArray();
         return arr;
     }
@@ -105,7 +105,7 @@ public class ArticleMenu {
     }
 
     private int setPriceForArticle() {
-        String price=ApplicationObject.getValidation().entryData("How much is your price ?",DECIMAL_REGEX);
+        String price = ApplicationObject.getValidation().entryData("How much is your price ?", DECIMAL_REGEX);
         return Integer.parseInt(price);
     }
 
@@ -140,7 +140,7 @@ public class ArticleMenu {
         while (true) {
             System.out.print(" - Choose a category : ");
             String category_id = new Scanner(System.in).next();
-            if (category_id.equals("0"))break;
+            if (category_id.equals("0")) break;
             if (ApplicationObject.getValidation().checkInteger(category_id)) {
                 if (ApplicationObject.getCategoryRepo().isCategoryExist(Integer.parseInt(category_id)))
                     return Integer.parseInt(category_id);
@@ -154,7 +154,7 @@ public class ArticleMenu {
                 }
             } else {
                 PrintMessage.printError("Invalid format !");
-                if( ApplicationObject.getValidation().yesOrNoQuestion("Do you want to add new category ? (yes/no) ",
+                if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want to add new category ? (yes/no) ",
                         "(^yes$)|(^no$)")) {
                     addNewCategory();
                     return checkCategory();
@@ -180,8 +180,7 @@ public class ArticleMenu {
     }
 
     public void showMyArticle(int id) throws SQLException {
-       ApplicationObject.getArticleRepo().getArticleInfo(id);
-
+        ApplicationObject.getArticleRepo().getArticleInfoByUserId(id);
 
 
     }
@@ -218,6 +217,58 @@ public class ArticleMenu {
 
     }
 
+    public void editArticle(int id) throws SQLException {
+        ApplicationObject.getArticleRepo().getArticleTitle(id);
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want make edit  any article ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.print(" - Enter article id :");
+            String article_id = new Scanner(System.in).next();
+            if (ApplicationObject.getValidation().checkInteger(article_id)) {
+                if (ApplicationObject.getArticleRepo().isTitleExist(Integer.parseInt(article_id))) {
+                    editAttribute(ApplicationObject.getArticleRepo().getArticleInfo(Integer.parseInt(article_id)));
+                } else PrintMessage.printError("This article does not exist !");
+            }
+        }
 
 
+    }
+
+    private void editAttribute(Article article) throws SQLException {
+        Date date = new Date();
+
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want edit category ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            article.setCategory_id(checkCategory());
+        }
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want edit title ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            article.setTitle(setTitleForArticle());
+        }
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want edit brief ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.println(" - Enter your new breif : ");
+            article.setBrief(new Scanner(System.in).nextLine());
+        }
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want edit content ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.println(" - Enter your new content : ");
+            article.setContent(new Scanner(System.in).nextLine());
+        }
+        if (ApplicationObject.getValidation().yesOrNoQuestion("Do you want edit price ? (yes/no) ",
+                "(^yes$)|(^no$)")) {
+            System.out.print(" - Enter your price : ");
+            article.setPrice(new Scanner(System.in).nextInt());
+            if (article.getPrice() == 0) {
+                article.setIsFree(true);
+            } else if (article.getPrice() != 0) {
+                article.setIsFree(false);
+
+            }
+            article.setLastUpdateDate(new Timestamp(date.getTime()));
+        }
+
+        ApplicationObject.getArticleRepo().setArticleUpdate(article);
+
+
+    }
 }
